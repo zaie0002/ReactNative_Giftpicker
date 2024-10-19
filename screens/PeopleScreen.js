@@ -1,43 +1,26 @@
 import { useNavigation } from "@react-navigation/native";
 import { useContext } from "react";
-import { Button, FlatList, View, Text, SafeAreaView } from "react-native";
+import { Button, FlatList, View, Text, SafeAreaView, StyleSheet } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import PeopleContext from "../PeopleContext";
 
 export default function PeopleScreen() {
   const navigation = useNavigation();
-  //   const people = [
-  //     {
-  //       id: "d825796c-4fc1-4879-ad86-048ece613581",
-  //       name: "Tom",
-  //       dob: "2001-01-09",
-  //     },
-  //     {
-  //       id: "b825796d-4fc1-4879-ad86-048ece613582",
-  //       name: "Megan",
-  //       dob: "2001-02-28",
-  //     },
-  //     {
-  //       id: "a825796e-4fc1-4879-ad86-048ece613583",
-  //       name: "Conor",
-  //       dob: "2001-04-28",
-  //     },
-  //   ];
-
   const { people } = useContext(PeopleContext);
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView>
+      <SafeAreaView style={styles.container}>
         <FlatList
           data={people}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <View>
-              <Text>{item.name}</Text>
-              <Text>{item.dob}</Text>
+            <View style={styles.itemContainer}>
+              <Text style={styles.nameText}>{item.name}</Text>
+              <Text style={styles.dobText}>{item.dob}</Text>
             </View>
           )}
+          contentContainerStyle={styles.listContainer}
         />
         <Button
           title="Add Person"
@@ -47,3 +30,37 @@ export default function PeopleScreen() {
     </SafeAreaProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: "#f5f5f5",
+  },
+  listContainer: {
+    paddingBottom: 100, // Add some space at the bottom of the list
+  },
+  itemContainer: {
+    padding: 15,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    backgroundColor: "#fff",
+    borderRadius: 8,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5, // For Android shadow
+  },
+  nameText: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  dobText: {
+    fontSize: 14,
+    color: "#666",
+  },
+});
