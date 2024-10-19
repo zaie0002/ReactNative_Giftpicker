@@ -37,6 +37,11 @@ export default function AddPersonScreen() {
           }}
           onDateChange={setDob}
           selected={dob}
+          date={dob}
+          mode="calendar"
+          minimumDate={new Date(1900, 0, 1)}
+          maximumDate={new Date()}
+          format="YYYY-MM-DD"
         />
       </View>
 

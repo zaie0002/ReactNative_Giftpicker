@@ -6,17 +6,18 @@ const PeopleContext = createContext();
 
 export const PeopleProvider = ({ children }) => {
   const [people, setPeople] = useState([]);
-
   const STORAGE_KEY = "people";
 
-  // Load people from AsyncStorage
   useEffect(() => {
     const loadPeople = async () => {
       const savedPeople = await AsyncStorage.getItem(STORAGE_KEY);
-      if (savedPeople) setPeople(JSON.parse(savedPeople));
+      if (savedPeople) {
+        const parsedPeople = JSON.parse(savedPeople);
+        parsedPeople.sort((a, b) => new Date(a.dob) - new Date(b.dob));
+        setPeople(parsedPeople);
+      }
     };
     loadPeople();
-    console.log(people);
   }, []);
 
   const addPerson = async (name, dob) => {
@@ -25,7 +26,10 @@ export const PeopleProvider = ({ children }) => {
       name,
       dob,
     };
+    
     const updatedPeople = [...people, newPerson];
+    updatedPeople.sort((a, b) => new Date(a.dob) - new Date(b.dob));
+
     console.log(updatedPeople);
     setPeople(updatedPeople);
     await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(updatedPeople));

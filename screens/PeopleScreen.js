@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { Button, FlatList, View, Text, SafeAreaView, StyleSheet } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import PeopleContext from "../PeopleContext";
+import { TouchableOpacity } from "react-native";
 
 export default function PeopleScreen() {
   const navigation = useNavigation();
@@ -11,21 +12,27 @@ export default function PeopleScreen() {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        <FlatList
-          data={people}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <View style={styles.itemContainer}>
-              <Text style={styles.nameText}>{item.name}</Text>
-              <Text style={styles.dobText}>{item.dob}</Text>
-            </View>
-          )}
-          contentContainerStyle={styles.listContainer}
-        />
-        <Button
-          title="Add Person"
-          onPress={() => navigation.navigate("AddPerson")}
-        />
+        {people.length === 0 ? (
+          <View style={styles.emptyContainer}>
+            <Text style={styles.emptyText}>Please add your first person!</Text>
+          </View>
+        ) : (
+          <FlatList
+            data={people}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <View style={styles.itemContainer}>
+                <Text style={styles.nameText}>{item.name}</Text>
+                <Text style={styles.dobText}>{item.dob}</Text>
+              </View>
+            )}
+            contentContainerStyle={styles.listContainer}
+          />
+        )}
+        
+        <TouchableOpacity style={styles.fab} onPress={() => navigation.navigate("AddPerson")}>
+          <Text style={styles.fabText}>Add Person</Text>
+        </TouchableOpacity>
       </SafeAreaView>
     </SafeAreaProvider>
   );
@@ -38,7 +45,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f5f5f5",
   },
   listContainer: {
-    paddingBottom: 100, // Add some space at the bottom of the list
+    paddingBottom: 100,
   },
   itemContainer: {
     padding: 15,
@@ -53,7 +60,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5, // For Android shadow
+    elevation: 5,
   },
   nameText: {
     fontSize: 18,
@@ -62,5 +69,31 @@ const styles = StyleSheet.create({
   dobText: {
     fontSize: 14,
     color: "#666",
+  },
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    alignSelf: 'center',
+    bottom: 20,
+    backgroundColor: "#ADD8E6",
+    borderRadius: 30,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    elevation: 5,
+  },
+  fabText: {
+    color: "#000",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  emptyText: {
+    fontSize: 18,
+    color: "#666",
+    textAlign: 'center',
   },
 });
