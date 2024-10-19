@@ -4,10 +4,20 @@ import { Button, FlatList, View, Text, SafeAreaView, StyleSheet } from "react-na
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import PeopleContext from "../PeopleContext";
 import { TouchableOpacity } from "react-native";
+import { GestureHandlerRootView, Swipeable } from "react-native-gesture-handler";
 
 export default function PeopleScreen() {
   const navigation = useNavigation();
-  const { people } = useContext(PeopleContext);
+  const { people, deletePerson } = useContext(PeopleContext);
+
+  const renderRightActions = (id) => (
+    <TouchableOpacity
+      onPress={() => deletePerson(id)}
+      style={styles.deleteButton}
+    >
+      <Text style={styles.deleteText}>Delete</Text>
+    </TouchableOpacity>
+  );
 
   return (
     <SafeAreaProvider>
@@ -21,10 +31,12 @@ export default function PeopleScreen() {
             data={people}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-              <View style={styles.itemContainer}>
-                <Text style={styles.nameText}>{item.name}</Text>
-                <Text style={styles.dobText}>{item.dob}</Text>
-              </View>
+              <Swipeable renderRightActions={() => renderRightActions(item.id)}>
+                <View style={styles.itemContainer}>
+                  <Text style={styles.nameText}>{item.name}</Text>
+                  <Text style={styles.dobText}>{item.dob}</Text>
+                </View>
+              </Swipeable>
             )}
             contentContainerStyle={styles.listContainer}
           />

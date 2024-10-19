@@ -35,7 +35,11 @@ export default function AddPersonScreen() {
         <DatePicker
           options={{
           }}
-          onDateChange={setDob}
+          onDateChange={date => {
+            console.log("checkpoint 1 date", date)
+            console.log("checkpoint 2 date after operations", date.replace(/\//g, "-"))
+            setDob(date.replace(/\//g, "-"))
+          }}
           selected={dob}
           date={dob}
           mode="calendar"
