@@ -1,22 +1,41 @@
 import { useNavigation } from "@react-navigation/native";
 import { useContext } from "react";
-import { Button, FlatList, View, Text, SafeAreaView, StyleSheet } from "react-native";
+import { FlatList, View, Text, SafeAreaView, StyleSheet } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import PeopleContext from "../PeopleContext";
 import { TouchableOpacity } from "react-native";
-import { GestureHandlerRootView, Swipeable } from "react-native-gesture-handler";
+import { Swipeable } from "react-native-gesture-handler";
 
 export default function PeopleScreen() {
   const navigation = useNavigation();
   const { people, deletePerson } = useContext(PeopleContext);
 
+  const renderItem = ({ item }) => (
+    <Swipeable renderRightActions={() => renderRightActions(item.id)}>
+      <View style={styles.itemContainer}>
+        <View style={styles.personInfo}>
+          <Text style={styles.nameText}>{item.name}</Text>
+          <Text style={styles.dobText}>{item.dob}</Text>
+        </View>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Idea")}
+          style={styles.addIdeaButton}
+        >
+          <Text style={styles.addIdeaText}>Add Idea</Text>
+        </TouchableOpacity>
+      </View>
+    </Swipeable>
+  );
+
   const renderRightActions = (id) => (
-    <TouchableOpacity
-      onPress={() => deletePerson(id)}
-      style={styles.deleteButton}
-    >
-      <Text style={styles.deleteText}>Delete</Text>
-    </TouchableOpacity>
+    <View style={styles.rightActionsContainer}>
+      <TouchableOpacity
+        onPress={() => deletePerson(id)}
+        style={styles.deleteButton}
+      >
+        <Text style={styles.deleteText}>Delete</Text>
+      </TouchableOpacity>
+    </View>
   );
 
   return (
@@ -30,14 +49,7 @@ export default function PeopleScreen() {
           <FlatList
             data={people}
             keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <Swipeable renderRightActions={() => renderRightActions(item.id)}>
-                <View style={styles.itemContainer}>
-                  <Text style={styles.nameText}>{item.name}</Text>
-                  <Text style={styles.dobText}>{item.dob}</Text>
-                </View>
-              </Swipeable>
-            )}
+            renderItem={renderItem}
             contentContainerStyle={styles.listContainer}
           />
         )}
@@ -60,6 +72,9 @@ const styles = StyleSheet.create({
     paddingBottom: 100,
   },
   itemContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     padding: 15,
     marginVertical: 8,
     marginHorizontal: 16,
@@ -74,6 +89,9 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
+  personInfo: {
+    flex: 1,
+  },
   nameText: {
     fontSize: 18,
     fontWeight: "bold",
@@ -81,6 +99,43 @@ const styles = StyleSheet.create({
   dobText: {
     fontSize: 14,
     color: "#666",
+  },
+  addIdeaButton: {
+    backgroundColor: "#FFD700", // Gold color for the button
+    justifyContent: "center",
+    alignItems: "center",
+    width: 90,
+    height: 50,
+    borderRadius: 25,
+    marginLeft: 10, // Add margin to separate from person info
+  },
+  addIdeaText: {
+    color: "black",
+    fontWeight: "bold",
+  },
+  rightActionsContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  deleteButton: {
+    backgroundColor: "red",
+    justifyContent: "center",
+    alignItems: "center",
+    width: 70,
+    height: 50,
+    borderRadius: 25,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  deleteText: {
+    color: "white",
+    fontWeight: "bold",
   },
   fab: {
     position: 'absolute',
@@ -108,27 +163,6 @@ const styles = StyleSheet.create({
     color: "#666",
     textAlign: 'center',
   },
-  deleteButton: {
-    marginVertical: 8,
-    marginTop: 20,
-    backgroundColor: "red",
-    justifyContent: "center",
-    alignItems: "center",
-    width: 70,
-    height: 50, // Set a specific height for better aesthetics
-    borderRadius: 25, // Increased border radius for a smoother appearance
-    shadowColor: "#000", // Add shadow for a lifted effect
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.3, // Adjusted opacity for softer shadow
-    shadowRadius: 4, // Increased radius for a softer look
-    elevation: 5, // Adjusted elevation for Android
-  },
-  deleteText: {
-    color: "white", // White text for delete button
-    fontWeight: "bold",
-  },
 });
+
 
