@@ -108,4 +108,27 @@ const styles = StyleSheet.create({
     color: "#666",
     textAlign: 'center',
   },
+  deleteButton: {
+    marginVertical: 8,
+    marginTop: 20,
+    backgroundColor: "red",
+    justifyContent: "center",
+    alignItems: "center",
+    width: 70,
+    height: 50, // Set a specific height for better aesthetics
+    borderRadius: 25, // Increased border radius for a smoother appearance
+    shadowColor: "#000", // Add shadow for a lifted effect
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.3, // Adjusted opacity for softer shadow
+    shadowRadius: 4, // Increased radius for a softer look
+    elevation: 5, // Adjusted elevation for Android
+  },
+  deleteText: {
+    color: "white", // White text for delete button
+    fontWeight: "bold",
+  },
 });
+
