@@ -11,7 +11,7 @@ export default function AddIdeaScreen() {
   const [facing, setFacing] = useState("back");
   const [photo, setPhoto] = useState(null);
   const [text, setText] = useState("");
-  const { saveIdeas } = useContext(PeopleContext);
+  const { addIdea } = useContext(PeopleContext);
   const navigation = useNavigation();
   const route = useRoute();
   const { personId } = route.params;
@@ -55,7 +55,7 @@ export default function AddIdeaScreen() {
         height: 500,
       };
 
-      await saveIdeas(personId, idea);
+      await addIdea (personId, idea);
       navigation.navigate("Idea", { personId, newIdea: idea });
     } else {
       Alert.alert("Your Idea or photo is missing. Please, add both to continue!");
