@@ -18,7 +18,7 @@ export default function PeopleScreen() {
           <Text style={styles.dobText}>{item.dob}</Text>
         </View>
         <TouchableOpacity
-          onPress={() => navigation.navigate("Idea")}
+          onPress={() => navigation.navigate("Idea", { personId: item.id })}
           style={styles.addIdeaButton}
         >
           <Text style={styles.addIdeaText}>Add Idea</Text>
@@ -164,5 +164,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
-
