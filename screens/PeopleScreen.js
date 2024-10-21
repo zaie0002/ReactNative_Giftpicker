@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#ffffff", // Set background to white
   },
   listContainer: {
     paddingBottom: 100,
@@ -78,16 +78,9 @@ const styles = StyleSheet.create({
     padding: 15,
     marginVertical: 8,
     marginHorizontal: 16,
-    backgroundColor: "#fff",
-    borderRadius: 8,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    backgroundColor: "#e6f0ff", // Light blue background for list items
+    borderRadius: 10,
+    elevation: 3, // Slight elevation for depth
   },
   personInfo: {
     flex: 1,
@@ -95,22 +88,23 @@ const styles = StyleSheet.create({
   nameText: {
     fontSize: 18,
     fontWeight: "bold",
+    color: "#333", // Darker text for contrast
   },
   dobText: {
     fontSize: 14,
-    color: "#666",
+    color: "#666", // Lighter gray for secondary text
   },
   addIdeaButton: {
-    backgroundColor: "#FFD700", // Gold color for the button
+    backgroundColor: "#ADD8E6", // Light blue for the button
     justifyContent: "center",
     alignItems: "center",
     width: 90,
-    height: 50,
-    borderRadius: 25,
-    marginLeft: 10, // Add margin to separate from person info
+    height: 40,
+    borderRadius: 20,
+    marginLeft: 10,
   },
   addIdeaText: {
-    color: "black",
+    color: "#000", // Black text for visibility
     fontWeight: "bold",
   },
   rightActionsContainer: {
@@ -124,14 +118,6 @@ const styles = StyleSheet.create({
     width: 70,
     height: 50,
     borderRadius: 25,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    elevation: 5,
   },
   deleteText: {
     color: "white",
@@ -142,7 +128,7 @@ const styles = StyleSheet.create({
     margin: 16,
     alignSelf: 'center',
     bottom: 20,
-    backgroundColor: "#ADD8E6",
+    backgroundColor: "#ADD8E6", // Light blue FAB
     borderRadius: 30,
     paddingVertical: 12,
     paddingHorizontal: 24,

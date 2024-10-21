@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: "#f0f8ff",
+    backgroundColor: "#f0f8ff", // Very light blue background
     padding: 20,
   },
   message: {
